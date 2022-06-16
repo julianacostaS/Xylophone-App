@@ -19,11 +19,25 @@ class ViewController: UIViewController {
     }
 
     @IBAction func keyPressed(_ sender: UIButton) {
-        playSound()
+        playSound(soundName: sender.currentTitle!)
+        
+        //Reduces the sender's (the button that got pressed) opacity to half.
+        sender.alpha = 0.5
+        
+        //Code should execute after 0.2 second delay.
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            print("Start")
+            
+            //Brings sender's opacity back up to fully opaque.
+              sender.alpha = 1.0
+            print("End")
+          }
+        
     }
     
-    func playSound() {
-        let url = Bundle.main.url(forResource: "C", withExtension: "wav") //location of the C file with extension of wav
+    
+    func playSound(soundName: String) {
+        let url = Bundle.main.url(forResource: soundName, withExtension: "wav") //location of the C file with extension of wav
         player = try! AVAudioPlayer(contentsOf: url!) //The url file is put inside this player
         player.play() // tell the player to play the sound
                 
